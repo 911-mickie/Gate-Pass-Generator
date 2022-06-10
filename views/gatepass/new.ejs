@@ -1,0 +1,150 @@
+<%- layout('layouts/boilerplate') %>
+
+
+    <h1 class="text-center mt-3">New Gatepass</h1>
+
+    <div class="mt-5">
+
+        <form class="validate-form" action="/gatepass" method="post" novalidate>
+            <div class="row g-3">
+
+
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="gatepass[name]" required>
+
+
+                    <div class="valid-feedback">
+                        Looks good.
+                    </div>
+
+                    <div class="invalid-feedback">
+                        Please enter your name.
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="phoneNumber" name="gatepass[phoneNumber]" required>
+
+                    <div class="valid-feedback">
+                        Looks good.
+                    </div>
+
+                    <div class="invalid-feedback">
+                        Please enter your phone number.
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="visitingDept" class="form-label">Department</label>
+                    <select class="form-select" aria-label="Default select example" name="gatepass[visitingDept]"
+                        id="visitingDept" required>
+                        <option selected disabled value="">Select a Department</option>
+
+                        <option value="IT">IT</option>
+                        <option value="FINANCE">FINANCE</option>
+                        <option value="HR">HR</option>
+                    </select>
+
+                    <div class="invalid-feedback">
+                        Please select your department.
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+
+                    <span class="input-group-text">Purpose of your visit</span>
+                    <textarea class="form-control" aria-label="With textarea" name="gatepass[purpose]" id="purpose"
+                        required></textarea>
+
+                    <div class="valid-feedback">
+                        Looks good.
+                    </div>
+
+                    <div class="invalid-feedback">
+                        Please state the purpose of your visit.
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="visitorAddress" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="visitorAddress" name="gatepass[visitorAddress]"
+                        placeholder="Enter your current address" required>
+
+                    <div class="valid-feedback">
+                        Looks good.
+                    </div>
+
+                    <div class="invalid-feedback">
+                        Please enter your address.
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="visitorState" class="form-label">State</label>
+                    <input type="text" class="form-control" id="visitorState" name="gatepass[visitorState]" required>
+
+                    <div class="valid-feedback">
+                        Looks good.
+                    </div>
+
+                    <div class="invalid-feedback">
+                        Please enter your state.
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <label for="visitorCity" class="form-label">City</label>
+                    <input type="text" class="form-control" id="visitorCity" name="gatepass[visitorCity]" required>
+
+                    <div class="valid-feedback">
+                        Looks good.
+                    </div>
+
+                    <div class="invalid-feedback">
+                        Please enter your city.
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="aadharNumber" class="form-label">Enter your Aadhar Number for verification</label>
+                    <input type="text" class="form-control" id="aadharNumber" name="gatepass[aadharNumber]" required>
+
+                    <div class="valid-feedback">
+                        Looks good.
+                    </div>
+
+                    <div class="invalid-feedback">
+                        Please enter your aadhar card number.
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="areaToVisit" class="form-label">Area To Visit</label>
+                    <select class="form-select" aria-label="Default select example" name="gatepass[areaToVisit]"
+                        id="areaToVisit" required>
+                        <option selected disabled value="">Select the area to visit </option>
+                        <option value="Battery Area">Battery Area</option>
+                        <option value="Admin Building">Admin Building</option>
+                        <option value="Battery Area & Admin Building">Both</option>
+                    </select>
+
+                    <div class="invalid-feedback">
+                        Please select the area to visit.
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-12 mt-3 mb-3">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+
+        </form>
+    </div>

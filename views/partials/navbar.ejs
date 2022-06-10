@@ -1,0 +1,26 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark mb-5">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Gatepass</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/gatepass">All Gatepasses</a>
+                <a class="nav-link" href="/gatepass/new">New Gatepass</a>
+                <a class="nav-link" href="/approved">Approved Gatepasses</a>
+            </div>
+
+            <div class="navbar-nav ms-auto">
+                <% if(!currentUser) {%>
+                    <a href="/login" class="nav-link">Login</a>
+                    <a href="/register" class="nav-link ml-auto">Register</a>
+                    <% } else {%>
+                        <a href="/logout" class="nav-link ml-auto">Logout</a>
+                        <% } %>
+            </div>
+
+
+        </div>
+</nav>

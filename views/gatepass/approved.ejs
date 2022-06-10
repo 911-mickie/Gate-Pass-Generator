@@ -1,0 +1,78 @@
+<%- layout('layouts/boilerplate') %>
+    <h1 class="mt-3 mb-3">Showing Approved Gatepasses</h1>
+
+    <div class="row">
+
+        <div class="col">
+            <div class="card" style="width: 25rem;">
+
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        <%= gatepass.name %>
+                    </h5>
+                    <p class="card-text"><i>Purpose of visit : </i>
+
+                        <%= gatepass.purpose %>
+
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i>Department</i> : <%= gatepass.visitingDept %>
+                    </li>
+                    <li class="list-group-item"><i>Area To Visit</i> : <%= gatepass.areaToVisit %>
+                    </li>
+                    <li class="list-group-item"><i>Phone Number</i> : <%= gatepass.phoneNumber %>
+                    </li>
+                    <li class="list-group-item"><i>Aadhar Number</i> : <%= gatepass.aadharNumber %>
+                    </li>
+                    <li class="list-group-item"><i>Address</i> : <%= gatepass.visitorAddress %>
+                    </li>
+                    <li class="list-group-item"><i>City</i> : <%= gatepass.visitorCity %>
+                    </li>
+                    <li class="list-group-item"><i>State</i> : <%= gatepass.visitorState %>
+                    </li>
+                    <li class="list-group-item"><i>Submitted By</i> :
+                        <%= gatepass.author.username %>
+                    </li>
+                </ul>
+
+                <% if(currentUser && (gatepass.author.equals(currentUser._id) ||
+                    currentUser._id=='62a1d71d2310c6cb94c4232e' )) { %>
+                    <div class="card-body">
+
+
+
+                        <a class="card-link btn btn-info" href="/approved">Show all</a>
+
+                    </div>
+                    <% } %>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col">
+            <div class="card" style="width: 25rem;">
+
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        <%= gatepass.author.username %>
+                    </h5>
+                    <p class="card-text"><i>Details of Employee : </i></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i>Department</i> : <%= gatepass.author.empDept %>
+                    </li>
+                    <li class="list-group-item"><i>Employee ID</i> : <%= gatepass.author.empID %>
+                    </li>
+                    <li class="list-group-item"><i>Employee email</i> : <%= gatepass.author.email %>
+                    </li>
+
+                </ul>
+
+
+            </div>
+        </div>
+    </div>
