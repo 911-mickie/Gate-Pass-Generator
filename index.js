@@ -56,17 +56,24 @@ app.use(mongoSanitize({ replaceWith: "_" }));
 
 const secret = process.env.SECRET || "thisshouldbeabettersecret";
 
-app.use(session({
+// app.use(session({
 
-    store: MongoDBStore.create({
-        mongoUrl: process.env.DB_Url,
-        secret,
-        touchAfter: 24 * 60 * 60,
-        crypto: {
-            secret: `${process.env.SECRET}` || "thisshouldbeabettersecret",
-        },
-    })
-}));
+//     store: MongoDBStore.create({
+//         mongoUrl: process.env.DB_Url,
+//         secret,
+//         ttl: 24 * 60 * 60,
+//         crypto: {
+//             secret: `${process.env.SECRET}` || "thisshouldbeabettersecret",
+//         },
+//     })
+// }));
+
+const store = new MongoDBStore({
+    url: DBUrl,
+    secret,
+    ttl: 24 * 60 * 60,
+
+})
 
 // const store = MongoDBStore.create({
 //     mongoUrl: process.env.DB_Url,
