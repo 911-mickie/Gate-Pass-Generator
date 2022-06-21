@@ -69,7 +69,7 @@ const secret = process.env.SECRET || "thisshouldbeabettersecret";
 // }));
 
 const store = new MongoStore({
-    url: DBUrl,
+    mongoUrl: DBUrl,
     secret,
     ttl: 24 * 60 * 60,
 })
