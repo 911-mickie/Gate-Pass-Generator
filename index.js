@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
+
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose');
@@ -14,6 +18,8 @@ const User = require('./models/employee');
 // const Employee = require('./models/employee');
 require('./config/passport')(passport);
 
+const MongoDBStore = require('connect-mongo');
+
 
 const ejsMate = require('ejs-mate');
 const catchAsync = require('./utils/catchAsync')
@@ -21,12 +27,15 @@ const ExpressError = require('./utils/ExpressErrors');
 const Joi = require('joi');
 
 const approvedRoutes = require('./routes/approved')
+const rejectedRoutes = require('./routes/rejected')
 
 const gatepassRoutes = require('./routes/gatepass');
 const employeeRoutes = require('./routes/employee');
 
 
-mongoose.connect('mongodb://localhost:27017/ioclprojectnew', {
+const DBUrl = process.env.DB_Url || 'mongodb://localhost:27017/ioclprojectnew';
+// mongodb://localhost:27017/ioclprojectnew
+mongoose.connect(DBUrl, {
     useNewUrlParser: true,
 });
 
@@ -45,7 +54,23 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize({ replaceWith: "_" }));
 
+const secret = process.env.SECRET || "thisshouldbeabettersecret";
+
+const store = MongoDBStore.create({
+    mongoUrl: DBUrl,
+    secret,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: `${process.env.SECRET}` || "thisshouldbeabettersecret",
+    },
+});
+
+store.on('error', function (e) {
+    console.log('Session store error', e)
+})
+
 const sessionConfig = {
+    store,
     secret: 'thisisnotagoodsecret',
     resave: false,
     saveUninitialized: true,
@@ -104,6 +129,7 @@ app.use((req, res, next) => {
 app.use('/gatepass', gatepassRoutes);
 app.use('/', employeeRoutes);
 app.use('/approved', approvedRoutes);
+app.use('/rejected', rejectedRoutes);
 
 
 app.get('/', (req, res) => {

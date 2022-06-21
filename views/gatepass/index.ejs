@@ -1,14 +1,14 @@
 <%- layout('layouts/boilerplate') %>
 
     <div class="mt-3 mb-3">
-        <h1>All Gatepasses Pending Approval</h1>
+        <h1>All Gatepasses Pending Approval/Rejection</h1>
     </div>
 
 
 
     <% for(let pass of gatepass) {%>
 
-        <% if(!pass.approved) {%>
+        <% if(!pass.approved && !pass.rejected) {%>
 
             <div class="row">
                 <div class="col-sm-6">

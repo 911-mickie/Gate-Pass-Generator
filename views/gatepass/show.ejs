@@ -1,76 +1,78 @@
 <%- layout('layouts/boilerplate') %>
-    <h1 class="mt-3 mb-3">Showing Gatepass Pending Approval</h1>
+    <h1 class="mt-3 mb-3">Showing Gatepass Pending Approval/Rejection</h1>
 
+    <div class="row">
+        <div class="col-6 mb-3">
 
-    <% if(!gatepass.approved) {%>
-        <div class="row">
-
-
-            <div class="col-6">
-                <div class="card" style="width: 25rem;">
-
-                    <div class="card-body">
-                        <h5 class="card-title mb-3">
-                            <%= gatepass.name %>
-                        </h5>
-                        <p class="card-text"><i>Purpose of visit : </i>
-
-                            <%= gatepass.purpose %>
-
-                        </p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><i>Department</i> : <%= gatepass.visitingDept %>
-                        </li>
-                        <li class="list-group-item"><i>Area To Visit</i> : <%= gatepass.areaToVisit %>
-                        </li>
-                        <li class="list-group-item"><i>Phone Number</i> : <%= gatepass.phoneNumber %>
-                        </li>
-                        <li class="list-group-item"><i>Aadhar Number</i> : <%= gatepass.aadharNumber %>
-                        </li>
-                        <li class="list-group-item"><i>Address</i> : <%= gatepass.visitorAddress %>
-                        </li>
-                        <li class="list-group-item"><i>City</i> : <%= gatepass.visitorCity %>
-                        </li>
-                        <li class="list-group-item"><i>State</i> : <%= gatepass.visitorState %>
-                        </li>
-                        <li class="list-group-item"><i>Submitted By</i> :
-                            <%= gatepass.author.username %>
-                        </li>
-                    </ul>
-
-                    <% if(currentUser && gatepass.author.equals(currentUser._id) ) { %>
-                        <div class="card-body">
-
-                            <a class="card-link btn btn-info" href="/gatepass/<%=gatepass._id%>/edit">Edit</a>
-
-                            <form class="d-inline" action="/gatepass/<%=gatepass._id%>?_method=DELETE" method="POST">
-                                <button class="btn btn-danger">Delete</button>
-                            </form>
-                            <% } %>
-
-                                <% if(currentUser && gatepass.visitingDept==currentUser.empDept) {%>
-
-                                    <form action="/approved/<%= gatepass._id %>?_method=PATCH" method="post">
-
-
-                                        <button class="btn btn-success" type="submit">Approve</button>
-
-                                    </form>
-
-
-
-                                    <button class="btn btn-danger" type="submit">Reject</button>
-
-                                    <% } %>
-                        </div>
-
+            <div class="card" style="width: 25rem;">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        <%= gatepass.name %>
+                    </h5>
+                    <p class="card-text"><i>Purpose of visit : </i>
+                        <%= gatepass.purpose %>
+                    </p>
                 </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i>Department</i> : <%= gatepass.visitingDept %>
+                    </li>
+                    <li class="list-group-item"><i>Area To Visit</i> : <%= gatepass.areaToVisit %>
+                    </li>
+                    <li class="list-group-item"><i>Phone Number</i> : <%= gatepass.phoneNumber %>
+                    </li>
+                    <li class="list-group-item"><i>Aadhar Number</i> : <%= gatepass.aadharNumber %>
+                    </li>
+                    <li class="list-group-item"><i>Address</i> : <%= gatepass.visitorAddress %>
+                    </li>
+                    <li class="list-group-item"><i>City</i> : <%= gatepass.visitorCity %>
+                    </li>
+                    <li class="list-group-item"><i>State</i> : <%= gatepass.visitorState %>
+                    </li>
+                    <li class="list-group-item"><i>Submitted By</i> :
+                        <%= gatepass.author.username %>
+                    </li>
+                </ul>
+
+                <% if(currentUser && gatepass.author.equals(currentUser._id)) { %>
+                    <div class="card-body">
+
+                        <a class="card-link btn btn-info" href="/gatepass/<%=gatepass._id%>/edit">Edit</a>
+
+                        <form class="d-inline" action="/gatepass/<%=gatepass._id%>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                        <% } %>
+
+                            <% if(currentUser && gatepass.visitingDept==currentUser.empDept &&
+                                (currentUser._id=='62b14b75fa729c9135c569be' ||
+                                currentUser._id=='62b14b93fa729c9135c569c0' ||
+                                currentUser._id=='62b14baafa729c9135c569c2' )) {%>
+
+                                <form class="d-inline" action="/approved/<%= gatepass._id %>?_method=PATCH"
+                                    method="post">
+                                    <button class="btn btn-success" type="submit">Approve</button>
+                                </form>
+
+                                <form class="d-inline" action="/rejected/<%= gatepass._id %>?_method=PATCH"
+                                    method="post">
+                                    <button class="btn btn-danger" type="submit">Reject</button>
+                                </form>
+
+                                <% } %>
+
+
+                                    <div class="card-body">
+                                        <a class="card-link btn btn-info" href="/gatepass">Show all</a>
+                                    </div>
+                    </div>
+
             </div>
 
 
 
-            <div class="col-6">
+
+            <div class="col-6 mb-5">
+
                 <div class="card" style="width: 25rem;">
 
                     <div class="card-body">
@@ -91,7 +93,9 @@
 
 
                 </div>
+
             </div>
 
+
+
         </div>
-        <% } %>

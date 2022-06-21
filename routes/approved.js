@@ -22,7 +22,7 @@ router.get('/:id', catchAsync(async (req, res) => {
         req.flash('error', 'Cannot find that gatepass')
         return res.redirect('/gatepass');
     }
-    console.log(gatepass);
+    // console.log(gatepass);
     res.render('gatepass/approved', { gatepass, id });
 }))
 
@@ -32,12 +32,12 @@ router.patch('/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
 
     Gatepass.findById(id, function (err, gatepass) {
-        gatepass.approve = !gatepass.approve;
+        gatepass.approved = !gatepass.approved;
         gatepass.save(function (err, gatepass) {
             if (err) {
                 console.log(err);
             } else {
-                res.render('gatepass/approved', { gatepass })
+                res.redirect('/approved')
             }
         })
     });

@@ -30,10 +30,10 @@ const VisitorSchema = new Schema({
         default: false,
     },
 
-    approver: {
-        type: Schema.Types.ObjectId,
-        ref: 'Employee'
-    }
+    rejected: {
+        type: Boolean,
+        default: false,
+    },
 
 
 }, { strict: false });
