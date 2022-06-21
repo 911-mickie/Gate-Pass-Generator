@@ -57,7 +57,7 @@ app.use(mongoSanitize({ replaceWith: "_" }));
 const secret = process.env.SECRET || "thisshouldbeabettersecret";
 
 app.use(session({
-    secret,
+
     store: MongoDBStore.create({
         mongoUrl: process.env.DB_Url,
         secret,
