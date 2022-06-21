@@ -56,18 +56,28 @@ app.use(mongoSanitize({ replaceWith: "_" }));
 
 const secret = process.env.SECRET || "thisshouldbeabettersecret";
 
-const store = MongoDBStore.create({
-    mongoUrl: process.env.DB_Url,
+app.use(session({
     secret,
-    touchAfter: 24 * 60 * 60,
-    crypto: {
-        secret: `${process.env.SECRET}` || "thisshouldbeabettersecret",
-    },
-});
+    store: MongoStore.create({
+        mongoUrl: process.env.DB_Url,
+        secret,
+        touchAfter: 24 * 60 * 60,
+        crypto: {
+            secret: `${process.env.SECRET}` || "thisshouldbeabettersecret",
+        },
+    })
+}));
 
-store.on('error', function (e) {
-    console.log('Session store error', e)
-})
+// const store = MongoDBStore.create({
+//     mongoUrl: process.env.DB_Url,
+//     secret,
+//     touchAfter: 24 * 60 * 60,
+//     crypto: {
+//         secret: `${process.env.SECRET}` || "thisshouldbeabettersecret",
+//     },
+// });
+
+
 
 const sessionConfig = {
     store,
