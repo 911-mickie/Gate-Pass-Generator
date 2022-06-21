@@ -18,7 +18,7 @@ const User = require('./models/employee');
 // const Employee = require('./models/employee');
 require('./config/passport')(passport);
 
-const MongoDBStore = require('connect-mongo');
+const MongoStore = require('connect-mongo');
 
 
 const ejsMate = require('ejs-mate');
@@ -58,7 +58,7 @@ const secret = process.env.SECRET || "thisshouldbeabettersecret";
 
 // app.use(session({
 
-//     store: MongoDBStore.create({
+//     store: MongoStore.create({
 //         mongoUrl: process.env.DB_Url,
 //         secret,
 //         ttl: 24 * 60 * 60,
@@ -68,14 +68,16 @@ const secret = process.env.SECRET || "thisshouldbeabettersecret";
 //     })
 // }));
 
-const store = new MongoDBStore({
+const store = new MongoStore({
     url: DBUrl,
     secret,
     ttl: 24 * 60 * 60,
-
 })
+store.on("error", function (e) {
+    console.log("Session store error!", e)
+});
 
-// const store = MongoDBStore.create({
+// const store = MongoStore.create({
 //     mongoUrl: process.env.DB_Url,
 //     secret,
 //     touchAfter: 24 * 60 * 60,
