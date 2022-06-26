@@ -34,6 +34,7 @@ const employeeRoutes = require('./routes/employee');
 
 
 const DBUrl = process.env.DB_Url || 'mongodb://localhost:27017/ioclprojectnew';
+// const DBUrl = 'mongodb://localhost:27017/ioclprojectnew';
 // mongodb://localhost:27017/ioclprojectnew
 mongoose.connect(DBUrl, {
     useNewUrlParser: true,
