@@ -23,7 +23,7 @@ const extension = (joi) => ({
     },
 });
 
-module.exports.gatepassSchema = Joi.object({
+module.exports.VisitorSchema = Joi.object({
     gatepass: Joi.object({
         name: Joi.string().required(),
         phoneNumber: Joi.number().required().min(0),

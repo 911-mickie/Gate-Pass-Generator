@@ -11,6 +11,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require('helmet');
+const { VisitorSchema } = require('./schemas.js');
 
 const passport = require('passport');
 const LocalStratergy = require('passport-local');
@@ -57,17 +58,6 @@ app.use(mongoSanitize({ replaceWith: "_" }));
 
 const secret = process.env.SECRET || "thisshouldbeabettersecret";
 
-// app.use(session({
-
-//     store: MongoStore.create({
-//         mongoUrl: process.env.DB_Url,
-//         secret,
-//         ttl: 24 * 60 * 60,
-//         crypto: {
-//             secret: `${process.env.SECRET}` || "thisshouldbeabettersecret",
-//         },
-//     })
-// }));
 
 const store = new MongoStore({
     mongoUrl: DBUrl,
@@ -77,15 +67,6 @@ const store = new MongoStore({
 store.on("error", function (e) {
     console.log("Session store error!", e)
 });
-
-// const store = MongoStore.create({
-//     mongoUrl: process.env.DB_Url,
-//     secret,
-//     touchAfter: 24 * 60 * 60,
-//     crypto: {
-//         secret: `${process.env.SECRET}` || "thisshouldbeabettersecret",
-//     },
-// });
 
 
 
@@ -109,28 +90,6 @@ app.use(passport.session());
 // passport.use(new LocalStratergy(User.authenticate()));
 app.use(helmet({ crossOriginEmbedderPolicy: false }));
 
-app.use(
-    helmet.contentSecurityPolicy({
-        directives: {
-            // defaultSrc: [],
-            // connectSrc: ["'self'", ...connectSrcUrls],
-            // scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
-            // styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
-            // workerSrc: ["'self'", "blob:"],
-            objectSrc: [],
-            imgSrc: [
-                "'self'",
-                "blob:",
-                "data:",
-                "https://res.cloudinary.com/mickie/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
-                "https://images.unsplash.com/",
-            ],
-            // fontSrc: ["'self'", ...fontSrcUrls],
-            mediaSrc: ["https://res.cloudinary.com/mickie/"],
-            childSrc: ["blob:"],
-        },
-    })
-);
 
 
 passport.serializeUser(User.serializeUser());

@@ -1,4 +1,4 @@
-const { gatepassSchema } = require('./schemas.js');
+const { VisitorSchema } = require('./schemas.js');
 const ExpressError = require('./utils/ExpressErrors');
 const Gatepass = require('./models/gatepass')
 
@@ -14,7 +14,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 
 module.exports.validateGatepass = (req, res, next) => {
 
-    const { error } = gatepassSchema.validate(req.body);
+    const { error } = VisitorSchema.validate(req.body);
     if (res.error) {
         const msg = error.details.map(el => el.message).join(',')
         throw new ExpressError(msg, 400)
